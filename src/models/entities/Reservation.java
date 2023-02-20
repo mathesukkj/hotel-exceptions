@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
+import models.exceptions.DomainException;
+
 public class Reservation {
     private int roomNumber;
     private LocalDate checkIn;
@@ -13,12 +15,22 @@ public class Reservation {
         return ChronoUnit.DAYS.between(checkIn, checkOut);
     }
 
-    public void updateDates(LocalDate checkIn, LocalDate checkOut) {
+    public void updateDates(LocalDate checkIn, LocalDate checkOut) throws DomainException {
+        if (checkIn.isBefore(LocalDate.now()) || checkOut.isBefore(LocalDate.now())) {
+            throw new DomainException("Reservation dates for update must be future dates");
+        }
+        if (checkIn.isAfter(checkOut)) {
+            throw new DomainException("Check-out date must be after Check-in date");
+        }
+
         this.checkIn = checkIn;
         this.checkOut = checkOut;
     }
 
-    public Reservation(int roomNumber, LocalDate checkIn, LocalDate checkOut) {
+    public Reservation(int roomNumber, LocalDate checkIn, LocalDate checkOut) throws DomainException {
+        if (checkIn.isAfter(checkOut)) {
+            throw new DomainException("Check-out date must be after Check-in date");
+        }
         this.roomNumber = roomNumber;
         this.checkIn = checkIn;
         this.checkOut = checkOut;
