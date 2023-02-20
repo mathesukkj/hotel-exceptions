@@ -20,9 +20,10 @@ public class App {
 
         System.out.println("\nEnter data to update the reservation: ");
         System.out.print("What is the checkin date (dd/MM/yyyy): ");
-        reservation.setCheckIn(LocalDate.parse(s.next(), DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+        checkOut = LocalDate.parse(s.next(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         System.out.print("What is the checkout date (dd/MM/yyyy): ");
-        reservation.setCheckOut(LocalDate.parse(s.next(), DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+        checkOut = LocalDate.parse(s.next(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        reservation.updateDates(checkIn, checkOut);
         System.out.println(reservation);
 
         s.close();
