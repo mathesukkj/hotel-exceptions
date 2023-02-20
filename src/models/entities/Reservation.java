@@ -14,7 +14,8 @@ public class Reservation {
     }
 
     public void updateDates(LocalDate checkIn, LocalDate checkOut) {
-
+        this.checkIn = checkIn;
+        this.checkOut = checkOut;
     }
 
     public Reservation(int roomNumber, LocalDate checkIn, LocalDate checkOut) {
